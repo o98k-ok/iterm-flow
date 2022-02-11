@@ -5,61 +5,49 @@ import (
 	"fmt"
 	"github.com/o98k-ok/lazy/app"
 	"github.com/o98k-ok/lazy/host"
-	"github.com/o98k-ok/lazy/utils"
+	"github.com/o98k-ok/lazy/plist"
 	"io"
 	"os"
-	"strings"
 )
+
+const InfoPlist = "info.plist"
+const IconPath = "./lazy.jpeg"
 
 func main() {
 	var (
 		node   host.Node
+		flow   *plist.Info
 		err    error
-		chains [][]string
 		nodes = make([]host.Node, 0)
-		custom = "custom"
-		jumper = "jumper"
 	)
 
-	jumperInfo := os.Getenv(jumper)
-	if !utils.Empty(jumperInfo) {
-		nodes = append(nodes, host.Node{
-			Name: jumper,
-			Tags: []string{jumper},
-			IP:   jumperInfo,
-			Type: jumper,
-		})
-		chains = [][]string{
-			[]string{jumper},
-			[]string{jumper},
-		}
+	if flow, err = plist.NewPlist(InfoPlist); err != nil {
+		io.WriteString(os.Stderr, err.Error()+"\n")
+		return
 	}
 
-	if len(chains) == 0 {
-		chains = make([][]string, 1)
-		chains[0] = make([]string, 0)
+	vars := flow.GetAttrByNames([][]string{[]string{"variables"}})
+	if len(vars) != 1 {
+		io.WriteString(os.Stderr, "read variables error"+"\n")
+		return
 	}
-	chains[len(chains)-1] = append(chains[len(chains)-1], custom)
-	for _, env := range os.Environ() {
-		if !strings.HasPrefix(env, custom+"_") {
-			continue
-		}
 
-		es := strings.Split(env, "=")
-		if len(es) != 2 {
-			continue
-		}
+	envs, ok := vars[0].(map[string]interface{})
+	if !ok {
+		io.WriteString(os.Stderr, "parse variables error"+"\n")
+		return
+	}
 
-		if err = json.Unmarshal([]byte(es[1]), &node); err != nil {
+	for name, value := range envs {
+		if err = json.Unmarshal([]byte(value.(string)), &node); err != nil {
 			continue
 		}
-		node.Name = es[0][7:]
-		node.Type = custom
+		node.Name = name
 		nodes = append(nodes, node)
 	}
 
-	app.SetIconPath("./lazy.jpeg")
-	if err = app.InitApp(chains, nodes); err != nil {
+	app.SetIconPath(IconPath)
+	if err = app.InitApp(nodes); err != nil {
 		io.WriteString(os.Stderr, err.Error()+"\n")
 		return
 	}
