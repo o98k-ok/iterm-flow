@@ -15,7 +15,6 @@ const IconPath = "./lazy.jpeg"
 
 func main() {
 	var (
-		node   host.Node
 		flow   *plist.Info
 		err    error
 		nodes = make([]host.Node, 0)
@@ -39,6 +38,7 @@ func main() {
 	}
 
 	for name, value := range envs {
+		var node host.Node
 		if err = json.Unmarshal([]byte(value.(string)), &node); err != nil {
 			continue
 		}
