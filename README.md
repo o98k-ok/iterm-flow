@@ -36,7 +36,7 @@ What `iterm-flow` do is
 2. When you don't have `jumper` option, the flow will login custom server directly.
 ![without_jumper](./pics/without_jumper.jpg) 
 ![without_jumper_login](./pics/without_jumper_login.jpg)
-3. About login passwd:
+3. About login passwd: <br>
     Passwd is very important, I recommend you don't generate passwd when generate json env. You can call the password manager of Iterm2 by `option+comman+f`.
     More you can do like [this](https://medium.com/@ratchada.jududom/how-to-ssh-iterm2-with-password-manager-576b0452b493)
 ## Features
@@ -53,4 +53,4 @@ What `iterm-flow` do is
 # go build list.go
 ```
 ## Acknowledgement
-1. I get mush info from [vitorgalvao/custom-alfred-iterm-scripts)](https://github.com/vitorgalvao/custom-alfred-iterm-scripts)
+1. I get mush info from [vitorgalvao/custom-alfred-iterm-scripts](https://github.com/vitorgalvao/custom-alfred-iterm-scripts)
