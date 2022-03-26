@@ -9,12 +9,12 @@ import (
 )
 
 type Node struct {
-	Tags []string `json:"tags"`
-	IP     string `json:"ip"`
-	Port   string `json:"port,omitempty"`
-	User   string `json:"user,omitempty"`
-	Passwd string `json:"passwd,omitempty"`
-	Depend string `json:"depend,omitempty"`
+	Tags   []string `json:"tags"`
+	IP     string   `json:"ip"`
+	Port   string   `json:"port,omitempty"`
+	User   string   `json:"user,omitempty"`
+	Passwd string   `json:"passwd,omitempty"`
+	Depend string   `json:"depend,omitempty"`
 }
 
 ////////////////////////////////////////////////
@@ -25,7 +25,7 @@ type Node struct {
 //		1. ssh jumper@xxx.com
 //		2. ssh ok@10.10.10.10
 ////////////////////////////////////////////////
-func main()  {
+func main() {
 	nodes := make(map[string]Node)
 	reader := bufio.NewReader(os.Stdin)
 

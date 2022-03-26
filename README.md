@@ -16,7 +16,7 @@ What `iterm-flow` do is
 ## Installation
 1. Download [latest version](https://github.com/o98k-ok/iterm-flow/releases) and install it.
 2. Add Alfred workflow env variables.
-    1. You can use [gen.go](https://github.com/o98k-ok/iterm-flow/blob/main/gen.go) to generate env
+    1. You can use [gen.go](https://github.com/o98k-ok/iterm-flow/blob/main/tools/gen.go) to generate env
     ![gen_env](./pics/gen.jpg)
     2. Or you can generate env by yourself:<br>
         Adding  a server, you should add an env `Name` is server name, `Value` is json format, the field with `omitempty`  is optional.
@@ -45,7 +45,7 @@ What `iterm-flow` do is
 ## Build
 ```
 // run gen.go
-# go run gen.go
+# go run tools/gen.go
 // build list.go
 # go build list.go
 ```
