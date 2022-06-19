@@ -1,6 +1,7 @@
 package core
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/o98k-ok/lazy/v2/alfred"
 	"github.com/samber/lo"
@@ -47,6 +48,20 @@ func Trace(variables map[string]string, key string) []*Node {
 		key = node.Depend
 	}
 	return nodes
+}
+
+func GetField(variables map[string]string, field string, key string) string {
+	val, ok := variables[key]
+	if !ok {
+		return "404"
+	}
+
+	var node map[string]interface{}
+	err := json.Unmarshal([]byte(val), &node)
+	if err != nil {
+		return "ERROR"
+	}
+	return node[field].(string)
 }
 
 func Display(nodes []*Node) *alfred.Items {

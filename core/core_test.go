@@ -115,3 +115,20 @@ func TestMerge(t *testing.T) {
 	})
 
 }
+
+func TestGetField(t *testing.T) {
+	variables := map[string]string{
+		"server01": "{\"ip\":\"127.0.0.1\"}",
+		"server02": "{\"ip\":\"127.0.0.1\", \"depend\":\"server01\"}",
+	}
+
+	t.Run("test ip", func(t *testing.T) {
+		res := GetField(variables, "ip", "server01")
+		assert.Equal(t, "127.0.0.1", res)
+	})
+
+	t.Run("test empty", func(t *testing.T) {
+		res := GetField(variables, "ip", "server03")
+		assert.Equal(t, "404", res)
+	})
+}

@@ -32,6 +32,14 @@ func main() {
 		fmt.Println(core.Routine(nodes))
 	})
 
+	xli.Bind("ip", func(patterns []string) {
+		if len(patterns) < 1 {
+			return
+		}
+
+		fmt.Println(core.GetField(variables, "ip", patterns[0]))
+	})
+
 	err = xli.Run(os.Args)
 	if err != nil {
 		alfred.ErrItems("run failed", err)
