@@ -3,9 +3,10 @@ package core
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
+
 	"github.com/o98k-ok/lazy/v2/alfred"
 	"github.com/samber/lo"
-	"strings"
 )
 
 func EveryContains(collection []string, subset []string) bool {
@@ -80,7 +81,7 @@ func Routine(nodes []*Node) string {
 
 	var arr []string
 	for _, n := range nodes {
-		cmd := fmt.Sprintf("ssh %s@%s -p%s", n.User, n.IP, n.Port)
+		cmd := fmt.Sprintf("ssh %s %s@%s -p%s", n.PrefixExtra, n.User, n.IP, n.Port)
 		if len(n.Passwd) != 0 {
 			cmd += fmt.Sprintf(";%s", n.Passwd)
 		}

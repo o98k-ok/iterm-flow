@@ -2,6 +2,7 @@ package core
 
 import (
 	"encoding/json"
+
 	"github.com/gookit/validate"
 	"github.com/samber/lo"
 )
@@ -10,11 +11,12 @@ type Node struct {
 	Name string   `json:"name" validate:"required"`
 	Tags []string `json:"tags" validate:"required"`
 
-	IP     string `json:"ip" validate:"required"`
-	Port   string `json:"port" validate:"required"`
-	User   string `json:"user" validate:"required"`
-	Passwd string `json:"passwd"`
-	Depend string `json:"depend"`
+	IP          string `json:"ip"           validate:"required"`
+	Port        string `json:"port"         validate:"required"`
+	User        string `json:"user"         validate:"required"`
+	Passwd      string `json:"passwd"`
+	Depend      string `json:"depend"`
+	PrefixExtra string `json:"prefix_extra"`
 }
 
 const (
